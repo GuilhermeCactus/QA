@@ -1,0 +1,18 @@
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Pastas de dependências
+node_modules/
+venv/
+__pycache__/
+
+# Arquivos de log
+*.log
+
+# Arquivos de ambiente
+.env
+
+# Build
+dist/
+build/
