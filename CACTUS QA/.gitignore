@@ -1,5 +1,5 @@
 # Ignorar arquivos do sistema
-.DS_Store
+DS_Store
 Thumbs.db
 
 # Pastas de dependências
