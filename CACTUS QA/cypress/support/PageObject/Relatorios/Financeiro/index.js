@@ -16,6 +16,13 @@ class Financeiro {
             .click()
     }
 
+    navRelatorioCreditacoes(){
+        cy.wait(500)
+
+        cy.xpath(el.sideBarCreditacao)
+            .click()
+    }
+
     validarURLDeposito(){
         cy.wait(500)
 
@@ -26,6 +33,10 @@ class Financeiro {
         cy.wait(500)
 
         cy.url().should('contain', 'reports/financial/Withdraws');
+    }
+
+    validarURLCreditacoes(){
+        cy.url().should('contain', 'reports/financial/Credits');
     }
 
     selecionar1Ano(){
@@ -171,6 +182,118 @@ class Financeiro {
         });
     }
     
+    clickBtnFiltrarCreditacao(){
+        cy.wait(500)
+
+        cy.xpath(el.btnbuscarCreditacoes)
+            .should('be.visible')
+            .click()
+
+        cy.wait(1000)
+    }
+
+    clickBtnLimpa(){
+        cy.wait(500)
+
+        cy.xpath('//*[@id="kt_app_content_container"]//div[2]/div[4]/button')
+            .should('be.visible')
+            .click()
+
+        cy.wait(1000)
+    }
+
+    validarFuncaoLimpar(){
+        cy.wait(500)
+
+        cy.xpath(el.btnLimpar)
+            .should('not.exist')
+
+        cy.wait(500)
+    }
+
+    validarFuncaoDownload(){
+        // Btn Download
+        cy.xpath(el.btnDownload)
+            .should('be.visible')
+            .click()
+
+        cy.wait(750)
+
+        // Btn não -----> Validando botão não
+        cy.xpath(el.btnNao)
+            .should('be.visible')
+            .click()
+
+        cy.wait(750)
+
+        // Btn Download 
+        cy.xpath(el.btnDownload)
+            .should('be.visible')
+            .click()
+
+        cy.wait(750)
+
+        // Btn Sim 
+        cy.xpath(el.btnSim)
+            .should('be.visible')
+            .click()
+
+        cy.wait(750)
+
+        cy.xpath(el.modalDownload)
+            .invoke('text')
+            .then((text_card) => {
+                expect(text_card).to.include('Não foi possível processar seu relatório, entre em contato com o suporte".');
+
+                cy.get('.swal2-confirm').click()
+            })
+    }
+
+    validarTabelaCreditacoes(){
+        cy.get('body').then(() => {
+
+            // Verificando se a tabela possui registros antes de validar o link
+            cy.xpath('//*[@id="kt_app_content_container"]//table//tr')
+            .find('td')
+            .its('length')
+            .then((len) => {
+                if (len > 1) {
+                    if (text == 'Id do Jogador'){
+                        cy.get('[href="/profile/Player?id=4"]')
+                            .eq(0)
+                            .invoke('attr', 'href')
+                            .then((valor) => {
+                                expect(valor).to.contain('id=4');
+                            });
+                    } else if (text == 'E-mail'){ 
+                        cy.get('[href="mailto:player@email.com"]')
+                            .invoke('attr', 'href')
+                            .then((valor) => {
+                                expect(valor).to.contain('player@email.com');
+                            });
+                    } else if (text == 'Valor'){ 
+                        cy.get(':nth-child(6) > .px-2')
+                            .invoke('text')
+                            .then((valor) => {
+                                expect(valor).to.contain('1');
+                            });
+                    } else {
+                        cy.get(':nth-child(5) > .px-2')
+                            .invoke('text')
+                            .then((valor) => {
+                                expect(valor).to.contain('1');
+                            });
+                    }
+
+                } else {
+                cy.log('Tabela está vazia — nenhum dado para validar.');
+                }
+            });
+        })
+
+        cy.wait(750)
+    }
+
 }
 
 export default new Financeiro();
