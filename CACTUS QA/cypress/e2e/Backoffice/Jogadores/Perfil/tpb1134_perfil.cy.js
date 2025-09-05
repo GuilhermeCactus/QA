@@ -1,3 +1,5 @@
+import Perfil from "../../../../support/PageObject/Relatorios/";
+
 describe('TEST 01 - Jogadores - Perfil', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
@@ -12,6 +14,7 @@ describe('TEST 01 - Jogadores - Perfil', () => {
     pesquisar_por.forEach(($opc) => {
         it(`Pesquisar por : ${$opc}`, () => {
             cy.Navegacao_Jogadores_Perfil();
+
             cy.url().should('contain', 'profile/Player');
 
             // Abrir o dropdown
