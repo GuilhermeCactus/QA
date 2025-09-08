@@ -73,6 +73,6 @@ describe('TEST 03 - Jogadores - Perfil',() => {
 
         cy.wait(750)
 
-p        Perfil.validandoBuscarOutro()
+        Perfil.validandoBuscarOutro()
     });
 })
