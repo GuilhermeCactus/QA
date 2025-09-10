@@ -1,4 +1,4 @@
-import Perfil from "../../../../support/PageObject/Relatorios/";
+import Perfil from "../../../../support/PageObject/Jogadores/Perfil";
 
 describe('Teste relatorio > Jogadores', () => {
     beforeEach(() => {

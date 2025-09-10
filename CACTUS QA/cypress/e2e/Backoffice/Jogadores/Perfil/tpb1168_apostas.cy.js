@@ -1,3 +1,5 @@
+import Perfil from "../../../../support/PageObject/Jogadores/Perfil";
+
 describe('TEST - Jogadores - Perfil',() => {
 
     beforeEach(() => {
@@ -14,26 +16,14 @@ describe('TEST - Jogadores - Perfil',() => {
         it(`Validar - Apostas > ${opcao}`, () => {
             cy.Navegacao_Jogadores_Perfil();
 
-            cy.url().should('contain', 'profile/Player');
+            Perfil.validarURL()
 
-            // Input
-            cy.xpath('//*[@id="filter_form"]/div/div[2]//div/input[@placeholder="Digite o valor"]')
-                .should('be.visible')
-                .type('4');
+            Perfil.inputBuscaID()
 
-            cy.wait(750);
-
-            // Btn Filtrar
-            cy.xpath('//*[@id="filter_form"]/div/div[3]/button')
-                .should('be.visible')
-                .click();
-
-            cy.wait(750);
+            Perfil.clickBtnBuscar()
 
             // Validando Usuario
-            cy.get('.card-body > .d-flex > .fs-5')
-                .should('be.visible')
-                .should('contain.text', '4');
+            Perfil.validandoIDTable()
 
             // Clickando em apostas
             cy.contains('Apostas')

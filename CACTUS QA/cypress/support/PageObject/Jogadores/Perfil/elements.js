@@ -41,6 +41,7 @@ export const elements = {
     divValidacaoModalWhatsGeral : '//*[@id="swal2-html-container"]/span',
     modalEditar : '//*[@id="modal_add_user_player"]/div/div',
     modalNotas : '//*[@id="notes"]',
+    
 
     // OUTROS
     textArea : '//div/div/div[2]/form/div/textarea'
