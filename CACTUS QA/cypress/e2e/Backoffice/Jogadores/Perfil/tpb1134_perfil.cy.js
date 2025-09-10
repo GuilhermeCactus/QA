@@ -1,4 +1,4 @@
-import Perfil from "../../../../support/PageObject/Relatorios/";
+import Perfil from "../../../../support/PageObject/Jogadores/Perfil";
 
 describe('TEST 01 - Jogadores - Perfil', () => {
     beforeEach(() => {
@@ -44,7 +44,7 @@ describe('TEST 02 - Jogadores - Perfil',() => {
 
         Perfil.selecionandoPesquisaPor('ID')
 
-        Perfil.inserindoInput('4')
+        Perfil.inserindoInput('ID')
 
         Perfil.validandoIDTable()
     });
@@ -69,7 +69,7 @@ describe('TEST 03 - Jogadores - Perfil',() => {
         Perfil.selecionandoPesquisaPor('ID')
 
         // -> Selecionando ID 
-        Perfil.inserindoInput('4')
+        Perfil.inserindoInput('ID')
 
         cy.wait(750)
 
