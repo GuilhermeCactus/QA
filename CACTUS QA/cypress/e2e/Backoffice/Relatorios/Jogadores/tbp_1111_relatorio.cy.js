@@ -1,3 +1,5 @@
+import Analise from "../../../../support/PageObject/Relatorios/Jogadores";
+
 describe('Teste Relatorio Jogadores',() => {
         beforeEach(() => {
         cy.viewport(1920, 1080);
@@ -10,21 +12,10 @@ describe('Teste Relatorio Jogadores',() => {
     it('Teste sucesso', () => {
 
         cy.Navegacao_Relatorio_jogadores()
-       
-        cy.url().should('contain','reports/Players')
 
-        cy.wait(750)
+        Analise.validandoURL()
 
-        // Clicando no filtro de data para 1 ano
-        cy.get('.el-date-editor')
-            .should('be.visible')
-            .click()
-
-        // Clicandk no painel na lateral para 1 ano
-        cy.get('.el-picker-panel__sidebar > :nth-child(7)')
-            .click()
-
-        cy.wait(750)
+        Analise.seleciona1Ano()
 
         // Primeiro filtro
         cy.xpath('//*[@id="kt_app_content_container"]/div//div[2]/div[2]/div/div/div[1]/div')

@@ -1,4 +1,4 @@
-import Perfil from "../../../../support/PageObject/Jogadores/Analise";
+import Analise from "../../../../support/PageObject/Jogadores/Analise";
 
 describe('TEST 01- Jogadores - Analise',() => {
 
@@ -13,13 +13,13 @@ describe('TEST 01- Jogadores - Analise',() => {
     it(`Validar - Apostas > Analise`, () => {
         cy.Navegacao_Jogadores_Analise();
 
-        Perfil.validandoURL()
+        Analise.validandoURL()
 
         cy.Selecionando_1_ano_filtro(0)
 
-        Perfil.inserindoID()
+        Analise.inserindoID()
 
-        Perfil.validandoRetornoID()
+        Analise.validandoRetornoID()
     });
 });
 
@@ -39,14 +39,14 @@ describe('TEST 02- Jogadores - Analise',() => {
         it(`Validar - Apostas > Analise > ${$opc}`, () => {
             cy.Navegacao_Jogadores_Analise();
 
-            Perfil.validandoURL()
+            Analise.validandoURL()
 
             cy.Selecionando_1_ano_filtro(0)
 
             // Input
-            Perfil.inserindoID()
+            Analise.inserindoID()
             
-            Perfil.validandoRetornoID()
+            Analise.validandoRetornoID()
 
             cy.xpath(`//*[@id="kt_app_content_container"]//div[3]/div/div[1]/ul//a[text() = "${$opc}"]`)
                 .should('be.visible')
