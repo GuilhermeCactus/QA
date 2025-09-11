@@ -5,7 +5,7 @@ class Financeiro {
     navRelatorioDeposito(){
         cy.wait(500)
 
-        cy.xpath(el.sideDeposito)
+        cy.xpath(el.sideBarDeposito)
             .click()
     }
 
@@ -14,6 +14,8 @@ class Financeiro {
 
         cy.xpath(el.sideBarSaque)
             .click()
+
+        cy.wait(500)
     }
 
     navRelatorioCreditacoes(){
@@ -54,7 +56,7 @@ class Financeiro {
     selecionaStatus(opc){
         cy.wait(500)
 
-        cy.get(el.selectStatus)
+        cy.xpath(el.selectStatus)
             .eq(0)
             .click()
 
@@ -64,10 +66,26 @@ class Financeiro {
         cy.contains(el.dropdownStatus, opc)
             .should('be.visible')
             .click();
+
+        cy.wait(750)
+
+
     }
 
-    selecionaFiltro(){
+    validandoStatus(opc){
+        cy.xpath('//*[@id="kt_app_content_container"]//table/tbody/tr/td[4]/div')
+            .should('be.visible')
+            .invoke('text')
+            .then((retornoStatus) => {
+                if(opc != 'Todos'){
+                    expect(retornoStatus).to.include(opc)
+                }
+            })
+    }
+
+    selecionaFiltro(opc){
         cy.xpath(el.selectFiltro)
+            .eq(1)
             .should('be.visible')
             .click()
 
@@ -105,13 +123,13 @@ class Financeiro {
                         var pesquisa
 
                         if (text == 'Id do Jogador'){
-                            pesquisa = '4'
+                            pesquisa = '28000003'
                         } else if (text == 'E-mail'){ 
-                            pesquisa = 'player@email.com'
+                            pesquisa = 'testeRegina@cartovale.com.br'
                         } else if (text == 'Valor'){ 
-                            pesquisa = '1'
+                            pesquisa = '25'
                         } else {
-                            pesquisa = '1'
+                            pesquisa = '2'
                         }
 
                         // Input 
@@ -126,12 +144,15 @@ class Financeiro {
                             .click()
                     }
 
-                    cy.wait(750);
+                    cy.wait(2000);
+
+                    // Validando tabela
+                    this.validarTabela(opc,text)
             })
         })
     }
 
-    validarTabela(){
+    validarTabela(opc,validador){
         // Verificando se o elemento existe antes de continuar
         cy.get('body').then(() => {
             // Verificando se a tabela possui registros antes de validar o link
@@ -140,30 +161,33 @@ class Financeiro {
                 .its('length')
                 .then((len) => {
                     if (len > 1) {
-                        if (text == 'Id do Jogador'){
-                            cy.get('[href="/profile/Player?id=4"]')
-                                .eq(0)
-                                .invoke('attr', 'href')
-                                .then((valor) => {
-                                    expect(valor).to.contain('id=4');
-                                });
-                        } else if (text == 'E-mail'){ 
-                            cy.get('[href="mailto:player@email.com"]')
-                                .invoke('attr', 'href')
-                                .then((valor) => {
-                                    expect(valor).to.contain('player@email.com');
-                                });
-                        } else if (text == 'Valor'){ 
-                            cy.get(':nth-child(6) > .px-2')
+
+                        // -> Validando status antes de
+                        this.validandoStatus(opc)
+
+                        if (validador == 'Id do Jogador'){
+                            cy.xpath('//*[@id="kt_app_content_container"]//table/tbody/tr/td[1]/div')
                                 .invoke('text')
                                 .then((valor) => {
-                                    expect(valor).to.contain('1');
+                                    expect(valor).to.contain('28000003');
+                                });
+                        } else if (validador == 'E-mail'){ 
+                            cy.xpath('//*[@id="kt_app_content_container"]//table/tbody/tr/td[2]/div/a[2]')
+                                .invoke('text')
+                                .then((valor) => {
+                                    expect(valor).to.contain('testeRegina@cartovale.com.br');
+                                });
+                        } else if (validador == 'Valor'){ 
+                            cy.xpath('//*[@id="kt_app_content_container"]//table/tbody/tr/td[6]/div')
+                                .invoke('text')
+                                .then((valor) => {
+                                    expect(valor).to.contain('25');
                                 });
                         } else {
                             cy.get(':nth-child(5) > .px-2')
                                 .invoke('text')
                                 .then((valor) => {
-                                    expect(valor).to.contain('1');
+                                    expect(valor).to.contain('2');
                                 });
                         }
 
@@ -174,6 +198,7 @@ class Financeiro {
 
             // Segundo select
             cy.xpath(el.selectFiltro)
+                .eq(1)
                 .should('be.visible')
                 .click()
 
@@ -275,7 +300,7 @@ class Financeiro {
                         cy.get(':nth-child(6) > .px-2')
                             .invoke('text')
                             .then((valor) => {
-                                expect(valor).to.contain('1');
+                                expect(valor).to.contain('25');
                             });
                     } else {
                         cy.get(':nth-child(5) > .px-2')

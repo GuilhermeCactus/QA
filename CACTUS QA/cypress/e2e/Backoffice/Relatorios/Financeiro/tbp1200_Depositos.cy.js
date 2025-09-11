@@ -4,7 +4,7 @@ describe('TEST 01- Financeiro - Deposito',() => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });
@@ -24,7 +24,7 @@ describe('TEST 01- Financeiro - Deposito',() => {
             Financeiro.navRelatorioDeposito()
 
             // Validando URL
-            Financeiro.validarURL()
+            Financeiro.validarURLDeposito()
 
             // Selecionando 1 Ano
             Financeiro.selecionar1Ano()
@@ -32,11 +32,8 @@ describe('TEST 01- Financeiro - Deposito',() => {
             // Selects
             Financeiro.selecionaStatus(opc)
 
-            // Segundo Select
-            Financeiro.selecionaFiltro()
-
-            // Validando tabela
-            Financeiro.validarTabela()
+            // Segundo Select -> Valida a tabela
+            Financeiro.selecionaFiltro(opc)
 
         });
     });
@@ -46,7 +43,7 @@ describe('TEST 02- Financeiro - Saque',() => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });
@@ -56,7 +53,7 @@ describe('TEST 02- Financeiro - Saque',() => {
 
     status.forEach((opc) => {
 
-        it(`Validar - Depositos -> Status ${opc}`, () => {
+        it(`Validar - Saque -> Status ${opc}`, () => {
 
             cy.Navegacao_Financeiro();
 
@@ -70,13 +67,11 @@ describe('TEST 02- Financeiro - Saque',() => {
             Financeiro.selecionar1Ano()
 
             // Selects status
-            Financeiro.selectStatus(opc)
+            Financeiro.selecionaStatus(opc)
 
-            // Segundo Select
-            Financeiro.selecionaFiltro()
+            // Segundo Select -> Valida a tabela 
+            Financeiro.selecionaFiltro(opc)
 
-            // Validando tabela
-            Financeiro.validarTabela()
         });
     })
 });

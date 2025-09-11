@@ -4,7 +4,7 @@ describe('TEST 01- Financeiro - Creditação',() => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });
@@ -44,7 +44,7 @@ describe('TEST 02- Financeiro - Creditação',() => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });

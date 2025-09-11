@@ -1,0 +1,7 @@
+{
+    "usuarioValido":{
+        "email": "admin@email.com",
+        "senha": "secret"
+    }
+
+}

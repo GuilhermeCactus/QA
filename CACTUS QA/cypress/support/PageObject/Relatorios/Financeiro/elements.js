@@ -6,8 +6,9 @@ export const elements = {
     sideBarCreditacao : '//*[@id="reports"]/div[3]/a/span[2]',
 
     // ELEMENTOS SELECT
-    selectStatus : '.el-select > .select-trigger > .el-input',
+    selectStatus : '//*[@id="kt_app_content_container"]//div[2]/div[2]/div/div',
     selectFiltro : '//*[@id="kt_app_content_container"]//div[2]/div[3]/div/div/div[1]/div/div',
+    selectOperador : '//*[@id="kt_app_content_container"]//div[2]/div[4]/div/div',
 
     // ELEMENTOS DROPDOWN
     dropdownStatus : '.el-select-dropdown__item',

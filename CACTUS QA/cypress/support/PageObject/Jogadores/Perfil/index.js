@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import {elements as el} from "./elements";
 
 class Perfil {
