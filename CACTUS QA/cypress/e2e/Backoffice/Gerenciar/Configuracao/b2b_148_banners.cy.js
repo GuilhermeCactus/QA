@@ -1,10 +1,10 @@
-import Banner from '../../../../pages/Backoffice/Gerenciar/Configuracao/Banner';
+import Banner from '../../../../support/PageObject/Gerenciar/Configuracao/Banners';
 
 describe('Teste Banner > Geral', () => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });
@@ -26,20 +26,24 @@ describe('Teste Banner > Geral', () => {
     // Testes de navegação e criação de banner -> [QA-002]
     it(`Teste criação de banner`, () => {
 
-        Banner.navegaCriacaoOpcBanners()
+        Banner.navegaOpcBannersValidacao()
+
+        Banner.validarCriacaoBanners()
+
+        Banner.criacaoBanner()
 
     });
 
     // Testes de pesquisa link -> testQA -> [QA-003]
     it('Teste pesquisa link : Correto ',() => {
 
+        Banner.navegaOpcBannersValidacao()
+
         // Elemento input
         Banner.setandoInputLink('testQA');
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
-
-        cy.wait(2500)
 
         const dados_tabela = [];
 
@@ -72,13 +76,13 @@ describe('Teste Banner > Geral', () => {
         Banner.setandoInputLink('testQA');
 
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -116,13 +120,13 @@ describe('Teste Banner > Geral', () => {
         Banner.setandoInputLink('TESTQA');
 
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -160,13 +164,13 @@ describe('Teste Banner > Geral', () => {
         Banner.setandoInputLink('TESTQA');
 
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -239,13 +243,13 @@ describe('Teste Banner > Geral', () => {
         Banner.setandoInputLink('testqa');
 
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -316,13 +320,13 @@ describe('Teste Banner > Geral', () => {
         Banner.setandoInputLink('testq');
 
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -356,13 +360,13 @@ describe('Teste Banner > Geral', () => {
     // Testes de pesquisa por pais -> Brasil -> [QA-011]
     it('Teste pesquisa pais : Brasil',() => {
         // Select pais 
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Seleciona o pais Brasil
         Banner.selecionandoPais('Brasil');
 
         // Clicando para fechar o modal de seleção de pais
-        Banner.clickandoSelectPais()
+        Banner.clickSelectPais()
 
         // Botão filtrar
         Banner.clickBtnFiltrar()
@@ -397,7 +401,10 @@ describe('Teste Banner > Geral', () => {
     // Teste de deletar banner -> [QA-012]
     it('Teste deletar banner', () => {
 
+        Banner.validarCriacaoBanners()
+
         //Banner.criandoBannerInterno('Banners Home')
+        Banner.criacaoBanner()
 
         // Elemento input
         Banner.setandoInputLink('testqa');
@@ -412,13 +419,15 @@ describe('Teste Banner > Geral', () => {
         Banner.confirmandoDeleteBanner();
 
         // Validar modal de delete
-        Banner.validarModalBannerDeletado();
+        Banner.validandoDeletar();
     })
 
-    // Teste de deletar banner -> [QA-013]
-    it('Teste Editar banner', () => {
+    // Teste de deletar banner -> [QA-013]-> Alteração de data para permanente.
+    it.only('Teste Editar banner', () => {
 
-        Banner.criandoBannerInterno('Banners Home')
+        Banner.validarCriacaoBanners()
+
+        Banner.criacaoBanner()
 
         // Elemento input
         Banner.setandoInputLink('testqa');
@@ -431,9 +440,13 @@ describe('Teste Banner > Geral', () => {
 
         // Validando modal de edição
         cy.get('.modal-body')
-            .should('be.visible')
+        .should('be.visible')
 
-        Banner.editarBanner('BannersHomeEditado')
+        Banner.editarBanner('/BannersHomeEditado')
+
+        cy.get('.btn-secondary')
+        .should('be.visible')
+        .click()
 
         // Elemento input
         Banner.setandoInputLink('bannershomeeditado');
@@ -448,11 +461,11 @@ describe('Teste Banner > Geral', () => {
         Banner.confirmandoDeleteBanner();
 
         // Validar modal de delete
-        Banner.validarModalBannerDeletado();
+        Banner.validandoDeletar();
     })
 
     // Teste btn limpar -> [QA-014]
-    it('Teste limpar pesquisa', () => {
+    it.only('Teste limpar pesquisa', () => {
         // Elemento input
         Banner.setandoInputLink('testqa');
 
@@ -473,12 +486,12 @@ describe('Teste Banner > Geral', () => {
     })
 
     // Teste cancelar criação de banner -> [QA-015]
-    it('Teste cancelar criação de banner', () => {
+    it.only('Teste cancelar criação de banner', () => {
         // Click para abrir o modal de criação de banner
         Banner.clickAdicionarBanner();
 
         // Valida o modal de criação de banner
-        Banner.validarModalCriacaoBanner('Banners Home')
+        Banner.validandoModalCriacao('Banners Home')
 
         Banner.clickBtnCancelar()
 
@@ -486,9 +499,11 @@ describe('Teste Banner > Geral', () => {
     })
 
     // Teste cancelar edição de banner -> [QA-016]
-    it('Teste cancelar edição de banner', () => {
+    it.only('Teste cancelar edição de banner', () => {
 
-        Banner.criandoBannerInterno('Banners Home')
+        Banner.validarCriacaoBanners()
+
+        Banner.criacaoBanner()
 
         // Elemento input
         Banner.setandoInputLink('testqa');
@@ -511,9 +526,11 @@ describe('Teste Banner > Geral', () => {
     })
 
     // Teste cancelar exclusão de banner -> [QA-017]
-    it('Teste cancelar exclusão de banner', () => {
+    it.only('Teste cancelar exclusão de banner', () => {
 
-        Banner.criandoBannerInterno('Banners Home')
+        Banner.validarCriacaoBanners()
+
+        Banner.criacaoBanner()
 
         // Elemento input
         Banner.setandoInputLink('testqa');
@@ -527,10 +544,10 @@ describe('Teste Banner > Geral', () => {
         // Validando pop-up de confirmação
         Banner.BannerCancelar('exclusao');
 
-    })
+        cy.get('.swal2-confirm')
+        .should('be.visible')
+        .click()
 
-    it.only('Teste mudar data para permanente',() => {
-        
     })
 
 });
