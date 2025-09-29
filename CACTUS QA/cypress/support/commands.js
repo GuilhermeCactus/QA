@@ -198,41 +198,6 @@ Cypress.Commands.add('Selecionando_1_ano_filtro', ($eq) => {
     }
 });
 
-Cypress.Commands.add('Criando_Performance',() =>{
-        cy.wait(500)
-
-    // Btn para criar nova solicitação
-    cy.xpath('//*[@id="kt_app_content_container"]/div/div[1]/button')
-        .should('be.visible')
-        .click()
-
-    cy.wait(500)
-
-    // Esperando aparecer modal
-    cy.get('.modal-body')
-        .should('be.visible')
-
-    cy.wait(500)
-
-    // Selecionando 1 anos ------------------------------------
-    cy.get('.el-date-editor')
-        .click()
-
-    cy.wait(500)
-
-    // Clicandk no painel na lateral para 1 ano
-    cy.get('.el-picker-panel__sidebar > :nth-child(7)')
-        .click()
-
-    cy.wait(500)
-
-    // Tipo de tráfego
-    cy.get('.el-input > .el-input__wrapper')
-        .click()
-
-    cy.wait(500)
-})
-
 Cypress.Commands.add('clickAlerta', (locator,mensagem) => {
 
     cy.get(locator).click()
