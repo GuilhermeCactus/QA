@@ -1,18 +1,20 @@
-import Cupon from '../../../../pages/Backoffice/Gerenciar/Cupon';
+import Cupon from '../../../../support/PageObject/Gerenciar/Cupon';
 
 describe('Teste Gerenciar > Cupon', () => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });
+
+        Cupon.navegarCupon()
+
+        cy.wait(2000);
     });
 
     it(`Teste Filtro : Codigo`, () => {
-
-        Cupon.navegaCupon()
 
         // Inserindo filtro Codigo
         Cupon.inserindoCodigo('Teste')
@@ -27,8 +29,6 @@ describe('Teste Gerenciar > Cupon', () => {
 
     opc_tipo.forEach((opc) => {
         it(`Teste Filtro : Tipo - ${opc}`, () => {
-
-            Cupon.navegaCupon();
 
             // Inserindo filtro Codigo
             Cupon.inserindoCodigo('Teste')
@@ -47,7 +47,7 @@ describe('Teste Gerenciar > Cupon', () => {
 
     it(`Teste Filtro : Campanha - Cupon`, () => {
 
-        Cupon.navegaCupon();
+        Cupon.navegarCupon();
 
         // Inserindo filtro Codigo
         Cupon.inserindoCodigo('Teste')
@@ -72,8 +72,6 @@ describe('Teste Gerenciar > Cupon', () => {
 
     opc_carteira.forEach((opc) => {
         it(`Teste Filtro : Carteira - ${opc}`, () => {
-
-            Cupon.navegaCupon();
 
             // Inserindo filtro Codigo
             Cupon.inserindoCodigo('Teste')
@@ -100,8 +98,6 @@ describe('Teste Gerenciar > Cupon', () => {
 
     opc_filtro.forEach((opc) => {
         it.only(`Teste Filtro : Filtra por -> ${opc}`, () => {
-
-            Cupon.navegaCupon();
 
             // Inserindo filtro Codigo
             Cupon.inserindoCodigo('Teste')

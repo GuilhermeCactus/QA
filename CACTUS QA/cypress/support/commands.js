@@ -58,7 +58,7 @@ Cypress.Commands.add('login_stage16',(email,senha) => {
 
     // Validando
     cy.url({timeout:10000}).should('include', '/Dashboard')
-    cy.wait(4000) // -> Tempo generico para resposta html
+    cy.wait(5000) // -> Tempo generico para resposta html
 
     cy.get('.card-body')
         .should('be.visible')

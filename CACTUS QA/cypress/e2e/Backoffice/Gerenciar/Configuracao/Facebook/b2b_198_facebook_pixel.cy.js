@@ -1,4 +1,4 @@
-import Facebook from '../../../../support/PageObject/Gerenciar/Configuracao/Facebook';
+import Facebook from '../../../../../support/PageObject/Gerenciar/Configuracao/Facebook';
 
 describe('Teste Configuração > Facebook Pixel', () => {
     beforeEach(() => {

@@ -17,39 +17,13 @@ describe('Teste Relatorio Jogadores',() => {
 
         Analise.seleciona1Ano()
 
-        // Primeiro filtro
-        cy.xpath('//*[@id="kt_app_content_container"]/div//div[2]/div[2]/div/div/div[1]/div')
-            .click()
+        Analise.selecionaPrimeiroFiltro()
 
-        cy.xpath('//div/div/div[1]/ul/li[1]/span')
-            .first()
-            .click()
+        Analise.selecionaSegundoFiltro()
 
-        cy.wait(1000)
+        Analise.selecionaTerceiroFiltro()
 
-        // Segundo filtro
-        cy.xpath('//*[@id="kt_app_content_container"]/div//div[2]/div[3]/div/div/div[1]/div')
-            .click()
-
-        cy.xpath('//div/div/div[1]/ul/li[1]/span')
-            .eq(1)
-            .click()
-
-        cy.wait(1000)
-
-        // Terceiro filtro
-        cy.xpath('//*[@id="kt_app_content_container"]/div//div[2]/div[4]/div/div/div[1]/div')
-            .click()
-
-        cy.xpath('//div/div/div[1]/ul/li[1]/span')
-            .eq(2)
-            .click()
-
-        cy.wait(1000)
-
-        cy.xpath('//*[@id="kt_app_content_container"]//div[2]/div[5]/button')
-            .click()
-
-        cy.wait(750)
+        // Clicando no botao de aplicar filtros
+        Analise.aplicarFiltros()
     });
 })

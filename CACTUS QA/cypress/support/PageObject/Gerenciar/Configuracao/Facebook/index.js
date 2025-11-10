@@ -10,7 +10,7 @@ class Facebook {
         .scrollTo('bottom', { ensureScrollable: false, duration: 300 });
 
         // Clica no link pai do span "Performance"
-        cy.xpath('//span[text()="Facebook Pixel"]/parent::a')
+        cy.xpath(el.sideBarFcebook)
         .scrollIntoView()
         .should('be.visible')
         .click();
@@ -18,7 +18,7 @@ class Facebook {
 
     validandoURL(){
         cy.wait(750)
-        cy.url().should('contain', 'settings/facebook');
+        cy.url().should('contain', el.urlValidacao);
         cy.wait(750)
     }
 
@@ -46,7 +46,7 @@ class Facebook {
     }
 
     validandoBtnAdicionar(){
-        cy.xpath('//*[@id="kt_app_content_container"]/div/div[1]/button')
+        cy.xpath(el.btnAdicionar)
         .should('be.visible')
         .invoke('text')
         .then((btnAdicionarText) => {
@@ -54,7 +54,7 @@ class Facebook {
             cy.wait(500)
         })
 
-        cy.xpath('//*[@id="kt_app_content_container"]/div/div[1]/button')
+        cy.xpath(el.btnAdicionar)
         .click();
 
         cy.wait(500)
@@ -64,9 +64,8 @@ class Facebook {
     }
 
     validandoCadastro(){
-        
         // Validando nome do modal
-        cy.xpath("//div[@class = 'modal-header flex']")
+        cy.xpath(el.modalModal)
         .should('be.visible')
         .invoke('text')
         .then((textModal) => {
@@ -74,7 +73,7 @@ class Facebook {
         })
 
         // Validando Primeiro input
-        cy.xpath('//form/div[1]/label')
+        cy.xpath(el.inputIDfiliado)
         .should('be.visible')
         .invoke('text')
         .then((primeiroInput) => {
@@ -82,7 +81,7 @@ class Facebook {
         })
 
         // Validando segundo input
-        cy.xpath('//form/div[2]/label')
+        cy.xpath(el.inputNome)
         .should('be.visible')
         .invoke('text')
         .then((segundoInput) => {
@@ -90,7 +89,7 @@ class Facebook {
         })
 
         // Validando terceiro input
-        cy.xpath('//form/div[3]/label')
+        cy.xpath(el.inputEmail)
         .should('be.visible')
         .invoke('text')
         .then((teceiroInput) => {
@@ -98,7 +97,7 @@ class Facebook {
         })
 
         // Validando quarto input
-        cy.xpath('//form/div[4]/label')
+        cy.xpath(el.inputObservacao)
         .should('be.visible')
         .invoke('text')
         .then((quartoInput) => {
@@ -106,7 +105,7 @@ class Facebook {
         })
 
         // Validando quinto input
-        cy.xpath('//form/div[5]/label')
+        cy.xpath(el.inputID)
         .should('be.visible')
         .invoke('text')
         .then((quintoInput) => {

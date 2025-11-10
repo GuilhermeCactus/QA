@@ -1,4 +1,4 @@
-import Banner from '../../../../support/PageObject/Gerenciar/Configuracao/Banners';
+import Banner from '../../../../../support/PageObject/Gerenciar/Configuracao/Banners';
 
 describe('Teste Banner > Geral', () => {
 

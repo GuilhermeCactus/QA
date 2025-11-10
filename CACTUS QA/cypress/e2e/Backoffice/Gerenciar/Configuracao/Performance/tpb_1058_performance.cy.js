@@ -1,4 +1,4 @@
-import Performance from '../../../../support/PageObject/Gerenciar/Configuracao/Performance';
+import Performance from '../../../../../support/PageObject/Gerenciar/Configuracao/Performance';
 
 describe('Teste Configuração > Performance', () => {
     beforeEach(() => {

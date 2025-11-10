@@ -1,4 +1,4 @@
-import Parametro from '../../../../support/PageObject/Gerenciar/Configuracao/Parametro';
+import Parametro from '../../../../../support/PageObject/Gerenciar/Configuracao/Parametro';
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   // Ignora erros relacionados a 'setting checked'
