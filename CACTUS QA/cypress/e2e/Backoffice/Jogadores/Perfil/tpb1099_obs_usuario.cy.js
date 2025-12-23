@@ -3,7 +3,7 @@ import Perfil from "../../../../support/PageObject/Jogadores/Perfil";
 describe('Teste relatorio > Jogadores', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.fixture('nb934_usuarios').as('usuarios').then((usuarios) => {
+        cy.fixture('usuarios').then((usuarios) => {
             const usuario = usuarios.usuarioValido;
             cy.login(usuario.email, usuario.senha);
         });

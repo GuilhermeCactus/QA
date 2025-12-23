@@ -1,8 +1,8 @@
 import { elements as el } from "./elements";
 
-class Webhook {
+class EventoGamificacao {
 
-    navegarWebhook() {
+    navegarEventos() {
         cy.wait(1000);
 
         // Navegação para Webhook
@@ -220,4 +220,4 @@ class Webhook {
     }
 
 }
-export default new Webhook(); 
+export default new EventoGamificacao(); 

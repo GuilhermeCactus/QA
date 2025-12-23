@@ -48,7 +48,9 @@ Cypress.Commands.add('login',(email,senha) => {
 
 Cypress.Commands.add('login_stage16',(email,senha) => {
 
-    cy.visit('https://stage16-backoffice.bs2bet.com/')
+
+    cy.visit('https://backoffice-stage5.gli-cactus.com/access/allow-ip')
+    //cy.visit('https://stage16-backoffice.bs2bet.com/')
     cy.wait(1500) // -> Tempo generico para resposta html
 
     // Fazendo login
@@ -64,7 +66,56 @@ Cypress.Commands.add('login_stage16',(email,senha) => {
         .should('be.visible')
 
     cy.wait(1000)
+
+    cy.get('.swal2-confirm')
+    .should('be.visible')
+    .click()
 })
+
+Cypress.Commands.add('cloudflareAccess', () => {
+    cy.request({
+        url: 'https://backoffice-stage5.gli-cactus.com/access/allow-ip',
+        method: 'GET',
+        headers: {
+            "CF-Access-Client-Id": Cypress.env("CF_ACCESS_ID"),
+            "CF-Access-Client-Secret": Cypress.env("CF_ACCESS_SECRET")
+        }
+    }).then((res) => {
+        const cookies = res.headers['set-cookie'];
+
+        if (cookies) {
+            cookies.forEach(cookieString => {
+                const [cookie] = cookieString.split(';');
+                const [name, value] = cookie.split('=');
+
+                cy.setCookie(name.trim(), value.trim(), {
+                    domain: 'backoffice-stage5.gli-cactus.com'
+                });
+            });
+        }
+    });
+});
+
+
+Cypress.Commands.add('login_stage5', (email, senha) => {
+
+    cy.cloudflareAccess(); // <-- OBRIGATÓRIO AQUI
+
+    cy.visit('https://backoffice-stage5.gli-cactus.com/');
+
+    cy.get('[placeholder=E-mail]', { timeout: 10000 })
+        .should('be.visible')
+        .type(email);
+
+    cy.get('[placeholder=Senha]').type(senha);
+    cy.get('#kt_sign_in_submit').click();
+
+    cy.url({ timeout: 10000 }).should('include', '/Dashboard');
+
+    cy.get('.card-body', { timeout: 10000 }).should('be.visible');
+});
+
+
 
 Cypress.Commands.add('Navegacao_Caixa_Esporte',() => {
     // Esperando elemento estar valido para ação
